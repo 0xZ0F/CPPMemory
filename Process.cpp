@@ -9,7 +9,7 @@
 #include "Process.h"
 
 // Get Process ID From an executable name using toolhelp32Snapshot:
-DWORD GetProcID(const wchar_t* exeName) {
+DWORD GetProcID(const wchar_t* procName) {
 	PROCESSENTRY32 procEntry = { 0 };
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
 
@@ -20,7 +20,7 @@ DWORD GetProcID(const wchar_t* exeName) {
 	if (!Process32First(hSnapshot, &procEntry)) { return 0; }
 
 	do {
-		if (!wcscmp(procEntry.szExeFile, exeName)) {
+		if (!wcscmp(procEntry.szExeFile, procName)) {
 			CloseHandle(hSnapshot);
 			return procEntry.th32ProcessID;
 		}
@@ -31,7 +31,7 @@ DWORD GetProcID(const wchar_t* exeName) {
 }
 
 // Get ModuleEntry from module name, using toolhelp32snapshot:
-MODULEENTRY32 GetModule(const DWORD &procID, wchar_t* moduleName) {
+MODULEENTRY32 GetModule(const DWORD &procID, wchar_t* modName) {
 	MODULEENTRY32 modEntry = { 0 };
 
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procID);
@@ -42,9 +42,9 @@ MODULEENTRY32 GetModule(const DWORD &procID, wchar_t* moduleName) {
 		curr.dwSize = sizeof(MODULEENTRY32);
 		if (Module32First(hSnapshot, &curr)) {
 			do {
-				if (!wcscmp(curr.szModule, moduleName)) {
+				if (!wcscmp(curr.szModule, modName)) {
 					modEntry = curr;
-					std::wcout << "Module Entry for \"" << moduleName << "\" found.\n";
+					std::wcout << "Module Entry for \"" << modName << "\" found.\n";
 					break;
 				}
 			} while (Module32Next(hSnapshot, &curr));

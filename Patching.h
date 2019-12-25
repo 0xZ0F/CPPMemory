@@ -1,14 +1,17 @@
+/*
+
+	The patching functions will write to memory.
+	NOTE: When VirtualProtectEx() is used a PAGE_GUARD gets triggered. If you need more stealth you will have to come up with your own method until I implement one.
+	Code by Z0F.
+
+*/
 #pragma once
 #include <Windows.h>
 
-//internal patch
-//void Patch(void* dst, void* src, unsigned int size);
-//Internal Nop
-//void Nop(HANDLE hProc, void* dest, unsigned int size);
-
 // Will write to/patch starting at specified mem addr. Can write all R/W/X mem.
-// External Patch: PatchEx(Proc Handle, Addr to write to, what to write, size of data to write);
-void PatchEx(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size);
+// Example: Patch(hProc, (void*)(0x00007FF625631EEA), "\xC7\x44\x24\x40\x0F\x00\x00\x00", 8);
+void Patch(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size);
 
-//External Nop: NopEx(Proc Handle, Addr to start nops, num of nops);
-void NopEx(HANDLE &hProc, void* dst, const unsigned int &size);
+// Will write NOP instructions to a given address. The size parameter is how many NOPs to write.
+// Example: Nop(hProc, (void*)(0x00007FF625631EEA), 8);
+void Nop(HANDLE &hProc, void* dst, const unsigned int &size);

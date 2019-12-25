@@ -10,8 +10,9 @@
 #include "Patching.h"
 
 // Will write to/patch starting at specified mem addr. Can write all R/W/X mem.
-void PatchEx(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
-	std::cout << "PatchEx At: " << dst << std::endl;
+// Example: Patch(hProc, (void*)(0x00007FF625631EEA), "\xC7\x44\x24\x40\x0F\x00\x00\x00", 8);
+void Patch(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
+	std::cout << "Patching At: " << dst << std::endl;
 
 	// Change memory protection to allow for writing, write, then restore to previous protection level:
 	DWORD oldProtect;
@@ -20,9 +21,10 @@ void PatchEx(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
 	VirtualProtectEx(hProc, dst, size, oldProtect, &oldProtect);
 }
 
-//External Nop: NopEx(Proc Handle, Addr to start nops, num of nops);
-void NopEx(HANDLE &hProc, void* dst, const unsigned int &size) {
-	std::cout << "NopEx At: " << dst << std::endl;
+// Will write NOP instructions to a given address. The size parameter is how many NOPs to write.
+// Example: Nop(hProc, (void*)(0x00007FF625631EEA), 8);
+void Nop(HANDLE &hProc, void* dst, const unsigned int &size) {
+	std::cout << "Nop At: " << dst << std::endl;
 
 	// Nops to write:
 	byte *nopArray = new byte[size];

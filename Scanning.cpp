@@ -41,7 +41,7 @@ void* PatternScan(char* base, size_t size, char* pattern, char* mask) {
 	return nullptr;
 }
 // External Wrapper:
-void* PatternScanEx(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern, char* mask) {
+void* PatternScanProcess(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern, char* mask) {
 	uintptr_t currentChunk = begin;
 	SIZE_T bytesRead;
 	// While the current chunk of 4096 bytes is not at the end, read it and pass that to PatternScan():
@@ -76,9 +76,9 @@ void* PatternScanEx(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern,
 }
 
 // Module wrapper for external pattern scan:
-void* PatternScanExModule(HANDLE hProc, const wchar_t* exeName, wchar_t* module, char* pattern, char* mask) {
-	DWORD procID = GetProcID(exeName);
-	MODULEENTRY32 modEntry = GetModule(procID, module);
+void* PatternScanModule(HANDLE hProc, const wchar_t* procName, wchar_t* modName, char* pattern, char* mask) {
+	DWORD procID = GetProcID(procName);
+	MODULEENTRY32 modEntry = GetModule(procID, modName);
 
 	if (!modEntry.th32ModuleID) {
 		return nullptr;
@@ -86,5 +86,5 @@ void* PatternScanExModule(HANDLE hProc, const wchar_t* exeName, wchar_t* module,
 
 	uintptr_t begin = (uintptr_t)modEntry.modBaseAddr;
 	uintptr_t end = begin + modEntry.modBaseSize;
-	return PatternScanEx(hProc, begin, end, pattern, mask);
+	return PatternScanProcess(hProc, begin, end, pattern, mask);
 }
