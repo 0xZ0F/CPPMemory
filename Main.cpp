@@ -1,3 +1,10 @@
+/*
+
+	Main.cpp (this file) is NOT needed, it's a good place to put your code and can be used as a reference.
+	Code by Z0F.
+
+*/
+
 #include <Windows.h>
 #include <iostream>
 #include "Process.h"

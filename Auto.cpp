@@ -1,3 +1,10 @@
+/*
+
+	These functions are for QOL. They are pre-built functions for common tasks.
+	Code by Z0F.
+
+*/
+
 #include "Auto.h"
 
 // Size defaults to 0. If size is 0, then the size will automatically be computed.

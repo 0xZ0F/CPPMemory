@@ -1,3 +1,10 @@
+/*
+
+	The process functions are used to gather information about processes, modules, etc.
+	Code by Z0F.
+
+*/
+
 #include <iostream>
 #include "Process.h"
 

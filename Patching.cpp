@@ -1,3 +1,11 @@
+/*
+
+	The patching functions will write to memory.
+	NOTE: When VirtualProtectEx() is used a PAGE_GUARD gets triggered. If you need more stealth you will have to come up with your own method until I implement one.
+	Code by Z0F.
+
+*/
+
 #include <iostream>
 #include "Patching.h"
 

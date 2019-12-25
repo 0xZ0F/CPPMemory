@@ -1,3 +1,11 @@
+/*
+
+	The pattern scanning functions are used to scan for patterns within a process.
+	Question marks in a mask will account for changes in a binary such as hard-coded addresses determined at runtime.
+	Code by Z0F.
+
+*/
+
 #include "Scanning.h"
 #include <iostream>
 
