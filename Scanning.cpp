@@ -27,7 +27,7 @@ void* PatternScan(char* base, size_t size, char* pattern, char* mask) {
 		}
 		if (found) {
 			// Return only base+i not base+i+j because we want the start of where the pattern was found.
-			return (void*)(base + i);
+			return (void *)(base + i);
 		}
 	}
 	return nullptr;
@@ -41,24 +41,24 @@ void* PatternScanEx(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern,
 		char buffer[4096];	// Size of chunk we want to read from, 4096 is one page.
 
 		DWORD oldProtect;
-		VirtualProtectEx(hProc, (void*)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldProtect);
+		VirtualProtectEx(hProc, (void *)currentChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oldProtect);
 		// Read from the current chunk and store it in buffer, also store the num of bytes read in bytesRead.
-		ReadProcessMemory(hProc, (void*)currentChunk, &buffer, sizeof(buffer), &bytesRead);
-		VirtualProtectEx(hProc, (void*)currentChunk, sizeof(buffer), oldProtect, &oldProtect);
+		ReadProcessMemory(hProc, (void *)currentChunk, &buffer, sizeof(buffer), &bytesRead);
+		VirtualProtectEx(hProc, (void *)currentChunk, sizeof(buffer), oldProtect, &oldProtect);
 
 		if (bytesRead == 0) { return nullptr; }
 
 		// Scan the current region in mem for the pattern we are looking for:
 		// base = &buffer, size = bytesRead, pattern = pattern, mask = mask.
-		void* internalAddress = PatternScan((char*)&buffer, bytesRead, pattern, mask);
+		void *internalAddress = PatternScan((char *)&buffer, bytesRead, pattern, mask);
 
 		if (internalAddress != nullptr) {
 			// Calculate from internal to external:
 			// buffer is the address of the internal addr of the current chunk, internalAddress is the internal addr of the pattern's location.
 			uintptr_t offsetFromBuffer = (uintptr_t)internalAddress - (uintptr_t)&buffer;
 			// currentChunk is an external addr. Add offsetFromBuffer to get external addr of the pattern's location.
-			std::cout << "Found pattern at: " << (void*)(currentChunk + offsetFromBuffer) << std::endl;
-			return (void*)(currentChunk + offsetFromBuffer);
+			std::cout << "Found pattern at: " << (void *)(currentChunk + offsetFromBuffer) << std::endl;
+			return (void *)(currentChunk + offsetFromBuffer);
 		} else {
 			// Advance to next chunk:
 			currentChunk = currentChunk + bytesRead;
@@ -68,7 +68,7 @@ void* PatternScanEx(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern,
 }
 
 // Module wrapper for external pattern scan:
-void* PatternScanExModule(HANDLE hProc, wchar_t* exeName, wchar_t* module, char* pattern, char* mask) {
+void* PatternScanExModule(HANDLE hProc, const wchar_t* exeName, wchar_t* module, char* pattern, char* mask) {
 	DWORD procID = GetProcID(exeName);
 	MODULEENTRY32 modEntry = GetModule(procID, module);
 

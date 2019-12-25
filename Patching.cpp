@@ -2,7 +2,7 @@
 #include "Patching.h"
 
 // Will write to/patch starting at specified mem addr. Can write all R/W/X mem.
-void PatchEx(HANDLE hProc, void* dst, void* bytes, unsigned int size) {
+void PatchEx(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
 	std::cout << "PatchEx At: " << dst << std::endl;
 
 	// Change memory protection to allow for writing, write, then restore to previous protection level:
@@ -13,11 +13,11 @@ void PatchEx(HANDLE hProc, void* dst, void* bytes, unsigned int size) {
 }
 
 //External Nop: NopEx(Proc Handle, Addr to start nops, num of nops);
-void NopEx(HANDLE hProc, void* dst, unsigned int size) {
+void NopEx(HANDLE &hProc, void* dst, const unsigned int &size) {
 	std::cout << "NopEx At: " << dst << std::endl;
 
 	// Nops to write:
-	byte* nopArray = new byte[size];
+	byte *nopArray = new byte[size];
 	memset(nopArray, 0x90, size);
 	DWORD oldProtect;
 

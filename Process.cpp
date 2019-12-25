@@ -24,7 +24,7 @@ DWORD GetProcID(const wchar_t* exeName) {
 }
 
 // Get ModuleEntry from module name, using toolhelp32snapshot:
-MODULEENTRY32 GetModule(DWORD procID, wchar_t* moduleName) {
+MODULEENTRY32 GetModule(const DWORD &procID, wchar_t* moduleName) {
 	MODULEENTRY32 modEntry = { 0 };
 
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, procID);

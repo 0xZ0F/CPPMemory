@@ -10,4 +10,4 @@ void* PatternScan(char* base, size_t size, char* pattern, char* mask);
 void* PatternScanEx(HANDLE hProc, uintptr_t begin, uintptr_t end, char* pattern, char* mask);
 
 //Module wrapper for external pattern scan
-void* PatternScanExModule(HANDLE hProc, wchar_t* exeName, wchar_t* module, char* pattern, char* mask);
+void* PatternScanExModule(HANDLE hProc, const wchar_t* exeName, wchar_t* module, char* pattern, char* mask);
