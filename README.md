@@ -1,5 +1,5 @@
 # Windows Process Hacking Library
-
+[Support me on Patreon!](https://www.patreon.com/z0f)
 ## Patching: 
 **The patching functions will write to memory.**  
 NOTE: When `VirtualProtectEx()` is used a PAGE_GUARD gets triggered. If you need more stealth you will have to come up with your own method until I implement one.

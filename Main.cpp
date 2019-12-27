@@ -57,6 +57,20 @@ static void Example_WriteToPattern() {
 	}
 }
 
+static void Example_ReadProcessMemory() {
+	DWORD procID = GetProcID(L"Testing.exe");
+	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, false, procID);
+
+	MODULEENTRY32 modEntry = GetModule(procID, L"Testing.exe");
+
+	// Array of bytes to put the memory in.
+	int buffer = 0;
+
+	// Read the memory and put it in buffer.
+	// Reading BaseAddress of program + 0x112F
+	ReadProcessMemory(hProc, (LPCVOID)(0x00007FF7A8A31EEA), &buffer, sizeof(int), NULL);
+}
+
 int main() {
 	std::getchar();
 	return  0;
