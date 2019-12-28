@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Patching.h"
 
-// Will write to/patch starting at specified mem addr. Can write all R/W/X mem.
+// Will write to/patch starting at specified address. Can write to data and code sections (all R/W/X memory) thanks to VirtualProtectEx().
 // Example: Patch(hProc, (void*)(0x00007FF625631EEA), "\xC7\x44\x24\x40\x0F\x00\x00\x00", 8);
 void Patch(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
 	std::cout << "Patching At: " << dst << std::endl;
@@ -26,7 +26,7 @@ void Patch(HANDLE &hProc, void* dst, char* bytes, const unsigned int &size) {
 void Nop(HANDLE &hProc, void* dst, const unsigned int &size) {
 	std::cout << "Nop At: " << dst << std::endl;
 
-	// Nops to write:
+	// NOP array to write into memory:
 	byte *nopArray = new byte[size];
 	memset(nopArray, 0x90, size);
 	DWORD oldProtect;

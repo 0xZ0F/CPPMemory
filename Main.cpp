@@ -58,6 +58,8 @@ static void Example_WriteToPattern() {
 }
 
 static void Example_ReadProcessMemory() {
+	// https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-readprocessmemory
+
 	DWORD procID = GetProcID(L"Testing.exe");
 	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, false, procID);
 
