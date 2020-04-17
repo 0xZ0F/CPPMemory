@@ -53,17 +53,17 @@ Question marks in a mask will account for changes in a binary such as hard-coded
   * `procName` is a name of a process.
   * `dst` is an address in the target process to write to.
   * `bytes` is data to be written by the function.
-  * `size` is how many bytes to write. Setting this argument to 0 will make the function compute the size automatically. This argument defaults to 0.
+  * `size` is how many bytes to write. Setting this argument to 0 will make the function compute the size automatically.
 * `AutoWriteToOffset()`: Writes given bytes to a given offset from a base address.
   * `procName` is a name of a process.
   * `modName` is a name of a module.
   * `offset` offset from an address to be written to.
   * `bytes` is data to be written by the function.
-  * `size` is how many bytes to write. Setting this argument to 0 will make the function compute the size automatically. This argument defaults to 0.
+  * `size` is how many bytes to write. Setting this argument to 0 will make the function compute the size automatically.
 * `AutoWriteToPattern`: Writes given bytes to a given address found via a pattern scan.
   * `procName` is a name of a process.
   * `modName` is a name of a module.
   * `pattern` is a pattern to be searched for.
   * `mask` is a mask for the pattern.
   * `bytes` is data to be written by the function.
-  * `size` is how many bytes to write. Setting this argument to 0 will make the 
+  * `size` is how many bytes to write.
