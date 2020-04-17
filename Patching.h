@@ -1,9 +1,7 @@
 /*
-
-	The patching functions will write to memory.
-	NOTE: When VirtualProtectEx() is used a PAGE_GUARD gets triggered. If you need more stealth you will have to come up with your own method until I implement one.
+	Functions to write to memory.
+	NOTE: When VirtualProtectEx() is used a PAGE_GUARD gets triggered. These functions aren't meant to be sneaky.
 	Code by Z0F.
-
 */
 #pragma once
 #include <Windows.h>

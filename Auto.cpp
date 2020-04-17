@@ -1,14 +1,13 @@
-/*
-
-	These functions are for QOL. They are pre-built functions for common tasks.
-	Code by Z0F.
-
-*/
-
+///*
+//
+//	These functions are for QOL. They are pre-built functions for common tasks.
+//	Code by Z0F.
+//
+//*/
 #include "Auto.h"
 
 // Size defaults to 0 (set in header file). If size is 0, then the size will automatically be computed.
-void AutoWriteToAddress(const wchar_t* procName, void* dst, char* bytes, const unsigned int &size) {
+void AutoWriteToAddress(const std::string& procName, void* dst, char* bytes, const unsigned int &size) {
 	DWORD procID = GetProcID(procName);
 	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, false, procID);
 
@@ -16,7 +15,7 @@ void AutoWriteToAddress(const wchar_t* procName, void* dst, char* bytes, const u
 }
 
 // Size defaults to 0 (set in header file). If size is 0, then the size will automatically be computed.
-void AutoWriteToOffset(const wchar_t* procName, wchar_t* modName, const unsigned int &offset, char* bytes, const unsigned int &size) {
+void AutoWriteToOffset(const std::string& procName, const std::string& modName, const unsigned int &offset, char* bytes, const unsigned int &size) {
 	DWORD procID = GetProcID(procName);
 	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, false, procID);
 
@@ -27,7 +26,7 @@ void AutoWriteToOffset(const wchar_t* procName, wchar_t* modName, const unsigned
 }
 
 // Size defaults to 0 (set in header file). If size is 0, then the size will automatically be computed.
-void AutoWriteToPattern(const wchar_t* procName, wchar_t* modName, char* pattern, char* mask, char* bytes, const unsigned int &size) {
+void AutoWriteToPattern(const std::string& procName, const std::string& modName, char* pattern, char* mask, char* bytes, const unsigned int &size) {
 	DWORD procID = GetProcID(procName);
 	HANDLE hProc = OpenProcess(PROCESS_ALL_ACCESS, false, procID);
 
